@@ -1,30 +1,34 @@
 package todoApp;
 
-public class Todo {
+public class Todo extends mainTodo{
 	
 	private String title;
 	private Boolean isDone;
 	private int priority;
 	
-	// isDone 기본값: false
-	public Todo() {
+	Todo(String title, int priority) {
+		super();
+		this.title = title;
 		this.isDone = false;
+		this.priority = priority;
 	}
+	
 	
 	public String getTitle() {
 		return title;
 	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
 	public Boolean getIsDone() {
 		return isDone;
 	}
-	public void setIsDone(Boolean isDone) {
-		this.isDone = isDone;
-	}
 	public int getPriority() {
 		return priority;
+	}
+	
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public void setIsDone(Boolean isDone) {
+		this.isDone = isDone;
 	}
 	public void setPriority(int priority) {
 		this.priority = priority;
