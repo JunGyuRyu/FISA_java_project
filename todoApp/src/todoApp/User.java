@@ -63,17 +63,18 @@ public class User {
 				
 				this.doneList.add(this.todoList.get(i));
 				this.todoList.remove(i);
+				this.todoList.get(i).setIsDone(true);
 				
 			}
 		}
 		
 	}
 	  
-	ArrayList<Todo> doneList() {
+	ArrayList<Todo> getDoneList() {
 		return this.doneList;
 	}
 	
-	ArrayList<Todo> remainList() {
+	ArrayList<Todo> getTodoList() {
 		return this.todoList;
 	}
 	
@@ -91,10 +92,22 @@ public class User {
 		System.out.println("TodoList");
 		for(int i = 0 ; i < todoList.size() ; i++) {
 			LocalDate endDate = todoList.get(i).getEndDate();
+			
 			System.out.println((i+1) + "." + todoList.get(i).getTitle() + " 완료 여부 : " 
 					+ todoList.get(i).getIsDone()
 					+ " 완료 날짜 :" + endDate
 					+ " 남은 기간 :" + todoList.get(i).checkDeadLine(endDate));
+		}
+		
+	}
+	
+	public void showDoneList() {
+		System.out.println("DoneList");
+		for(int i = 0 ; i < doneList.size() ; i++) {
+			LocalDate endDate = doneList.get(i).getEndDate();
+			System.out.println((i+1) + "." + doneList.get(i).getTitle() + " 완료 여부 : " 
+					+ todoList.get(i).getIsDone()
+					+ " 완료 날짜 :" + endDate);
 		}
 		
 	}

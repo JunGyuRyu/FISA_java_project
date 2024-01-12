@@ -56,6 +56,12 @@ public class Todo extends MainTodo{
 		try {
 			Period per = Period.between(date, endDate);
 			String deadLine = per.getYears()+"년 "+per.getMonths()+"개월 " + per.getDays() + "일 남았습니다.";
+			if (per.getYears() == 0 & per.getMonths() == 0 & per.getDays() == 0) {
+				deadLine = "완료 기한 당일입니다.";
+			}
+			else if (per.getYears() < 0 | per.getMonths() < 0 | per.getDays() < 0) {
+				deadLine = "이미 기한이 지났습니다.";
+			}
 			return deadLine;
 		} catch (Exception e) {
 			// TODO: handle exception
