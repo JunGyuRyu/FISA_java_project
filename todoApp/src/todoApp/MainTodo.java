@@ -14,6 +14,7 @@ public class MainTodo {
 					+ "2번 할일 등록 \n"
 					+ "3번 할일 삭제 \n"
 					+ "4번 할일 목록보기 \n"
+					+ "5번 할일 목록 저장 \n"
 					+ "0번 종료 \n"
 					+ "----------------------------");
 			Scanner scan = new Scanner(System.in);
