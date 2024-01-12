@@ -1,6 +1,7 @@
 package todoApp;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 public class Todo extends MainTodo{
 	
@@ -46,6 +47,21 @@ public class Todo extends MainTodo{
 	}
 	public void setPriority(int priority) {
 		this.priority = priority;
+	}
+	
+	public String checkDeadLine(LocalDate endDate) {
+		
+		LocalDate date = LocalDate.now(); // 현재 날짜 	
+		
+		try {
+			Period per = Period.between(date, endDate);
+			String deadLine = per.getYears()+"년 "+per.getMonths()+"개월 " + per.getDays() + "일 남았습니다.";
+			return deadLine;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return ("완료 시점이 존재하지 않습니다.");
+		}
+		
 	}
 	
 	// toString 실행 시 객체가 아니라 들어있는 값 출력

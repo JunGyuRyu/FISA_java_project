@@ -50,10 +50,8 @@ public class User {
 	
 	
 	
-	void addTodo(String title, int priority) {
-		Todo t1 = new Todo();
-		t1.setTitle(title);
-		t1.setPriority(priority);
+	void addTodo(String title, int priority, LocalDate date) {
+		Todo t1 = new Todo(title, priority, date);
 		this.todoList.add(t1);
 	}
 	
@@ -75,30 +73,7 @@ public class User {
 	ArrayList<Todo> remainList() {
 		return this.todoList;
 	}
-	void deadLine(String title) {
-		
-		LocalDate date = LocalDate.now(); // 현재 날짜 	
-		LocalDate endDate = null;
-		for (int i = 0 ; i < this.todoList.size() ; i ++) {
-			if (title == this.todoList.get(i).getTitle()) {
-				endDate = this.todoList.get(i).getEndDate();
-			}
-		}
-		
-//		LocalDate specialdate = LocalDate.of(2025, 7, 26);
-//		System.out.println(date + "  " + endDate);
-		try {
-			Period per = Period.between(date, endDate);
-			System.out.println("앞으로" + title + "완료시점은 " +
-					per.getYears()+"년 "+per.getMonths()+"개월 " + per.getDays() + "일 남았습니다.");
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println("완료 시점이 존재하지 않습니다.");
-		}
-		
-//		long diff = period.toDays();
-//		System.out.println(diff);
-	}
+	
 	
 	public void introduce() {
 		System.out.println("-----개인정보-----");
@@ -106,5 +81,17 @@ public class User {
 		System.out.println("나이 : " + this.age);
 		System.out.println("성별 : " + this.gender);
 		System.out.println("아이디 : " + this.userId);
+	}
+	
+	public void showTodoList() {
+		System.out.println("TodoList");
+		for(int i = 0 ; i < todoList.size() ; i++) {
+			LocalDate endDate = todoList.get(i).getEndDate();
+			System.out.println((i+1) + "." + todoList.get(i).getTitle() + " 완료 여부 : " 
+					+ todoList.get(i).getIsDone()
+					+ " 완료 날짜 :" + endDate
+					+ " 남은 기간 :" + todoList.get(i).checkDeadLine(endDate));
+		}
+		
 	}
 }
