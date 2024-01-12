@@ -51,7 +51,7 @@ public class MainTodo {
 						int priority = inputPriority.nextInt();
 						
 						
-						System.out.println("할일완료날짜 입력");
+						System.out.println("할일완료날짜(YYYY-MM-dd) 입력");
 						Scanner inputEndDate = new Scanner(System.in);
 						String endDate = inputEndDate.next();
 //						DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd. MMM. yyyy");
@@ -82,7 +82,7 @@ public class MainTodo {
 				for(int i = 0; i < userList.size(); i++) {
 					if(userList.get(i).getUserId() == inputId.nextInt()) {
 						userList.get(i).showTodoList();
-						
+						System.out.println();
 						System.out.println("완료한 리스트");
 						System.out.println(userList.get(i).doneList());
 					}

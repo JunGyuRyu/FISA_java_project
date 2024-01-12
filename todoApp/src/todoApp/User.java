@@ -56,8 +56,11 @@ public class User {
 	}
 	
 	void deleteTodo(String title) {
+	
 		for (int i = 0 ; i < this.todoList.size() ; i ++) {
-			if (title == this.todoList.get(i).getTitle()) {
+			
+			if (title.equals(this.todoList.get(i).getTitle()) ) {
+				
 				this.doneList.add(this.todoList.get(i));
 				this.todoList.remove(i);
 				
