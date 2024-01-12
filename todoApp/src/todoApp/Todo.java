@@ -63,11 +63,12 @@ public class Todo extends MainTodo{
 		}
 		
 	}
-	
-	// toString 실행 시 객체가 아니라 들어있는 값 출력
+
 	@Override
 	public String toString() {
-		return "Todo [title=" + title + ", isDone=" + isDone + ", priority=" + priority + "]";
-		
+		return "Todo [title=" + title + ", isDone=" + isDone + ", priority=" + priority + ", endDate=" + endDate + "]";
 	}
+	
+	// toString 실행 시 객체가 아니라 들어있는 값 출력
+	
 }

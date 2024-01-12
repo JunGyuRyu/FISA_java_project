@@ -35,9 +35,9 @@ public class MainTodo {
 			}else if(mode == 2) {
 				System.out.println("유저 아이디 입력해주세요");
 				Scanner inputId = new Scanner(System.in);
-				
+				int userId = inputId.nextInt();
 				for(int i = 0; i < userList.size(); i++) {
-					if(userList.get(i).getUserId() == inputId.nextInt()) {
+					if(userList.get(i).getUserId() == userId) {
 						System.out.println("안녕하세요 " + userList.get(i).getName() + "님"+
 					"\n할일 등록 시작하겠습니다.");
 						
@@ -66,21 +66,24 @@ public class MainTodo {
 				Scanner inputId = new Scanner(System.in);
 				
 				for(int i = 0; i < userList.size(); i++) {
-					if(userList.get(i).getUserId() == inputId.nextInt()) {
+					int userId = inputId.nextInt();
+					if(userList.get(i).getUserId() == userId) {
 						System.out.println("삭제할 할일 제목을 입력해 주세요");
 						Scanner inputDeleteTitle = new Scanner(System.in);
 						String DeleteTitle = inputDeleteTitle.next();
 						userList.get(i).deleteTodo(DeleteTitle);
 						System.out.println("삭제완료");
+						break;
 					}
 				}
 			}
 			else if(mode == 4) {
 				System.out.println("유저 아이디 입력해주세요");
 				Scanner inputId = new Scanner(System.in);
-				
+				int userId = inputId.nextInt();
 				for(int i = 0; i < userList.size(); i++) {
-					if(userList.get(i).getUserId() == inputId.nextInt()) {
+					if(userList.get(i).getUserId() == userId) {
+						System.out.println(userList.get(i).getName() + "님");
 						userList.get(i).showTodoList();
 						System.out.println();
 						System.out.println("완료한 리스트");
