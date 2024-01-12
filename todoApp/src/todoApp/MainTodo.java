@@ -93,7 +93,36 @@ public class MainTodo {
 						System.out.println(userList.get(i).doneList());
 					}
 				}
+			} else if(mode == 5) {
+				System.out.println("유저 아이디 입력해주세요");
+				Scanner inputId = new Scanner(System.in);
+				int userId;
+				// 제대로 입력했는지 확인
+				while (true) {
+					try {
+						userId = inputId.nextInt();	
+						break;
+					} catch (Exception e) {
+						System.out.println("유저 아이디가 없거나 int 자료형이 아닙니다. 다시 입력해주세요.");
+					}
+				}
+				
+				for(int i = 0; i < userList.size(); i++) {
+					if(userList.get(i).getUserId() == userId) {
+						User user = userList.get(i);
+						System.out.println(user.getName() + "님");
+						user.showTodoList();
+						Admin.todoToText(user);
+						
+						System.out.println();
+						System.out.println(userList.get(i).remainList());
+						System.out.println(userList.get(i).doneList());
+						System.out.println("txt 파일 작성 완료.");
+						
+					}
+				}
 			}
+			
 			else if(mode == 0) {
 				break;
 			}
