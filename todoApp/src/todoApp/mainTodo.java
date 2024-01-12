@@ -2,16 +2,18 @@ package todoApp;
 
 public class mainTodo {
 	public static void main(String[] argrs) {
-		System.out.println("Hi");
 		
-		Todo a = new Todo();
-		a.setIsDone(false);
-		a.setPriority(1);
-		a.setTitle("할일1");
-		System.out.println("ho");
-		System.out.println(a.getPriority());
-		System.out.println(a.getPriority());
-		System.out.println(a.getPriority());
-		System.out.println(a.toString());
+		Todo todo1 = new Todo();
+		todo1.setIsDone(false);
+		todo1.setPriority(1);
+		todo1.setTitle("할일1");
+		System.out.println(todo1.getIsDone());
+		System.out.println(todo1.getPriority());
+		System.out.println(todo1.getTitle());
+		System.out.println(todo1);
+		
+		
+		
+		
 	}
 }

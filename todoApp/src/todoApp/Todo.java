@@ -1,10 +1,15 @@
 package todoApp;
 
-public class Todo extends mainTodo{
+public class Todo {
 	
 	private String title;
 	private Boolean isDone;
 	private int priority;
+	
+	// isDone 기본값: false
+	public Todo() {
+		this.isDone = false;
+	}
 	
 	public String getTitle() {
 		return title;
@@ -25,12 +30,10 @@ public class Todo extends mainTodo{
 		this.priority = priority;
 	}
 	
+	// toString 실행 시 객체가 아니라 들어있는 값 출력
 	@Override
 	public String toString() {
 		return "Todo [title=" + title + ", isDone=" + isDone + ", priority=" + priority + "]";
+		
 	}
-	
-	
-	
-	
 }
