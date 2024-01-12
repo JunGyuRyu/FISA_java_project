@@ -1,16 +1,23 @@
 package todoApp;
 
-public class Todo extends mainTodo{
+import java.time.LocalDate;
+
+public class Todo extends MainTodo{
 	
 	private String title;
 	private Boolean isDone;
 	private int priority;
+	private LocalDate endDate;
 	
-	Todo(String title, int priority) {
-		super();
+	Todo(){
+		
+	}
+	
+	Todo(String title, int priority, LocalDate endDate) {
 		this.title = title;
 		this.isDone = false;
 		this.priority = priority;
+		this.endDate = endDate;
 	}
 	
 	
@@ -24,6 +31,13 @@ public class Todo extends mainTodo{
 		return priority;
 	}
 	
+	public void setEndDate(LocalDate date) {
+		this.endDate = date;
+	}
+	
+	public LocalDate getEndDate() {
+		return this.endDate;
+	}
 	public void setTitle(String title) {
 		this.title = title;
 	}
