@@ -54,6 +54,9 @@ public class MainTodo {
 						System.out.println("할일완료날짜(YYYY-MM-dd) 입력");
 						Scanner inputEndDate = new Scanner(System.in);
 						String endDate = inputEndDate.next();
+						
+						
+					
 //						DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd. MMM. yyyy");
 						LocalDate date =  LocalDate.parse(endDate);
 						
@@ -64,9 +67,9 @@ public class MainTodo {
 			}else if(mode == 3) {
 				System.out.println("유저 아이디 입력해주세요");
 				Scanner inputId = new Scanner(System.in);
+				int userId = inputId.nextInt();
 				
 				for(int i = 0; i < userList.size(); i++) {
-					int userId = inputId.nextInt();
 					if(userList.get(i).getUserId() == userId) {
 						System.out.println("삭제할 할일 제목을 입력해 주세요");
 						Scanner inputDeleteTitle = new Scanner(System.in);

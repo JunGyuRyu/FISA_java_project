@@ -86,6 +86,7 @@ public class User {
 		System.out.println("아이디 : " + this.userId);
 	}
 	
+
 	public void showTodoList() {
 		System.out.println("TodoList");
 		for(int i = 0 ; i < todoList.size() ; i++) {
