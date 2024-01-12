@@ -6,13 +6,20 @@ public class User {
 	private String name;
 	private int age;
 	private String gender;
-	private ArrayList<Todo> todoList;
-	private ArrayList<Todo> doneList;
+	private ArrayList<Todo> todoList = new ArrayList<Todo>();
+	private ArrayList<Todo> doneList = new ArrayList<Todo>();
 	
 	User(){
 		
 	}
 	
+	User(String name, int age, String gender) {
+		super();
+		this.name = name;
+		this.age = age;
+		this.gender = gender;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -31,12 +38,8 @@ public class User {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public ArrayList<Todo> getTodoList() {
-		return todoList;
-	}
-	public void setTodoList(ArrayList<Todo> todoList) {
-		this.todoList = todoList;
-	}
+	
+	
 	
 	void addTodo(String title, int priority) {
 		Todo t1 = new Todo();
