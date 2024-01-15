@@ -11,7 +11,7 @@ public class User {
 	private String gender;
 	private ArrayList<Todo> todoList = new ArrayList<Todo>();
 	private ArrayList<Todo> doneList = new ArrayList<Todo>();
-	
+	 
 	User() { // cheeckUserId에서 user = null 할 때 필요
 		
 	}
