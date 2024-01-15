@@ -1,4 +1,5 @@
 package todoApp;
+
 import java.io.*;
 import java.util.*;
 import java.time.*;
@@ -146,7 +147,6 @@ public class Admin {
 			File file = new File("src/todoApp/" + user.getName() + "/todoList.txt");
 			String user_info = (String) "[사용자: " + user.getName() + " | 나이: " + user.getAge() 
 			+ " | 성별: " + user.getGender() + "]\n\n";
-			
 			
 			// 파일에 입력한 값 작성
 			try {
