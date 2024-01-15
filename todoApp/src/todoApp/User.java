@@ -15,7 +15,7 @@ public class User {
 	User() { // cheeckUserId에서 user = null 할 때 필요
 		
 	}
-		
+		 
 	 
 	User(String name, int age, String gender) {
 		super();
