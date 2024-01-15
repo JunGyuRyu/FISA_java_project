@@ -2,7 +2,7 @@ package todoApp;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
- 
+
 public class User {
 	private String name;
 	private static int no = 0;
