@@ -16,7 +16,7 @@ public class User {
 		
 	}
 		
-	 
+	  
 	User(String name, int age, String gender) {
 		super();
 		this.name = name;
