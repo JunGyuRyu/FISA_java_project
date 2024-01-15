@@ -3,7 +3,6 @@ package todoApp;
 import java.time.LocalDate;
 import java.util.ArrayList;
  
-// 충돌 테스트
 public class User {
 	private String name;
 	private static int no = 0;
