@@ -16,4 +16,4 @@
     - mode 조건문별로 nextInt, next를 넣었는데 입력을 여러번 받아야 실행되는 이슈가 있어 변수를 지정하여 처리하였더니 제때 동작함
 
 ## UML
-![todo drawio__1__720](https://github.com/JunGyuRyu/FISA_java_project/assets/88473185/a701dab2-0d0e-45e6-899a-6d29f2f39bed)
+![TodoUML](https://github.com/JunGyuRyu/FISA_java_project/assets/88473185/398d52c9-3c6c-4fd0-8176-e7187a16cb7e)
