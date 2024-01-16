@@ -2,17 +2,45 @@ package todoApp;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import lombok.AllArgsConstructor;
 
-public class Todo extends MainTodo{
+@Getter
+@Setter
+public class Todo {
 	
 	private String title;
 	private Boolean isDone;
 	private int priority;
 	private LocalDate endDate;
+	Class.forName("com.mysql.cj.jdbc.Driver");
 	
-	Todo() {
-		
+	String url = "localhost";
+	String id = "root";
+	String pw = "0000";
+	
+	Connection conn = DriverManager.getConnection(url, id, pw);
+
+	Statement stmt = conn.createStatement();
+	
+	String sql = "select * from dept";
+	ResultSet rs = stmt.executeQuery(sql);
+	while(rs.next()) {
+		System.out.println(rs.getInt("deptno") + " "
+							+ rs.getString("dname") + " "
+							+ rs.getString("loc") );
+	
+	rs.close();
+	stmt.close();
+	conn.close();
 	}
+	
+//	Todo() {
+//		
+//	}
 	
 	Todo(String title, int priority, LocalDate endDate) {
 		this.title = title;
@@ -66,8 +94,7 @@ public class Todo extends MainTodo{
 		}
 	}
 	
-	@Override // 삭제
-	public String toString() {
-		return "Todo [title=" + title + ", isDone=" + isDone + ", priority=" + priority + ", endDate=" + endDate + "]";
-	}
+
 }
+
+
