@@ -1,11 +1,12 @@
 package todoApp;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class MainTodo {
-	public static void main(String[] argrs) {
+	public static void main(String[] argrs) throws SQLException {
 		
-		Admin admin = new Admin();
+		boolean tableFlag = true;
 		while(true) {
 			System.out.println("----------------------------\n"
 					+ "1번 유저 등록 \n"
@@ -16,6 +17,11 @@ public class MainTodo {
 					+ "6번 할 일 목록 저장 \n"
 					+ "0번 종료 \n"
 					+ "----------------------------");
+			if(tableFlag) {
+				AdminUser.createUserTable();
+				AdminTodo.createTodoTable();
+				tableFlag = false;
+			}
 			Scanner scan = new Scanner(System.in);
 			int mode; // int 자료형만 받기
 			try {
@@ -27,22 +33,22 @@ public class MainTodo {
 			}
 			
 			if(mode == 1) {
-				admin.addUserList();
+				AdminUser.addUser();
 			}
 			else if(mode == 2) {
-				admin.enrollTodo(admin.cheeckUserId());
+				AdminTodo.enrollTodo(AdminUser.checkUserId());
 			}
 			else if(mode == 3) {
-				admin.delTodo(admin.cheeckUserId());
+				AdminTodo.delTodo(AdminUser.checkUserId());
 			}
 			else if(mode == 4) {
-				admin.doneTodo(admin.cheeckUserId());
+				AdminTodo.doneTodo(AdminUser.checkUserId());
 			}
 			else if(mode == 5) {
-				admin.printTodoList(admin.cheeckUserId());
+				AdminTodo.printTodoList(AdminUser.checkUserId());
 			} 
 			else if(mode == 6) {
-				admin.saveTodoList(admin.cheeckUserId());
+				AdminTodo.saveTodoList(AdminUser.checkUserId());
 			}
 			else if(mode == 0) {
 				System.out.println("[Todo 프로그램 종료]");
