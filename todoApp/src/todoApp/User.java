@@ -144,7 +144,7 @@ public class User {
             int affectedRows = pstmt.executeUpdate();
 
             if (affectedRows > 0) {
-                System.out.println("[사용자 성별 업데이트 성공]");
+                System.out.println("[사용자 성별 업데이트 성공]"); 
             } else {
                 System.out.println("해당 ID의 사용자가 없습니다.");
             }
