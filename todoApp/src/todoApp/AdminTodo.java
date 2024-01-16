@@ -117,8 +117,6 @@ public class AdminTodo {
 		// 폴더 있으면 false 반환, 없으면 생성
 		boolean directoryCreated = folder.mkdir();
 		System.out.println("User 생성 여부: "+ directoryCreated);
-//		ArrayList<Todo> doneList = Todo.getDoneList();
-//		ArrayList<Todo> todoList = user.getTodoList();
 		String line = "----------------------------------------------------------------\n";
 		
 		
@@ -126,7 +124,6 @@ public class AdminTodo {
 		Statement stmt = conn.createStatement();
 		
 		String userInfoSQL = "select name, age, gender from UserTable where userId = " + userId;
-//		System.out.println(userInfoSQL);
 		ResultSet rs = stmt.executeQuery(userInfoSQL);
 		String user_info = "";
 		if (rs.next()) {
@@ -134,10 +131,7 @@ public class AdminTodo {
 		}	
 		
 		// todoList 폴더에 todo.txt 파일 생성
-		
 		File file = new File("src/todoApp/" +  User.getName(userId) + "/todoList.txt");
-//			String user_info = (String) "[사용자: " +  User.getName(userId) + " | 나이: " + user.getAge() 
-//			+ " | 성별: " + user.getGender() + "]\n\n";
 		
 		// 파일에 입력한 값 작성
 		try {
@@ -166,7 +160,6 @@ public class AdminTodo {
 		
 		
 		// doneList 폴더에 todo.txt 파일 생성
-		
 		File doneFile = new File("src/todoApp/" + User.getName(userId) + "/doneList.txt");
 		
 		
