@@ -5,10 +5,10 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+//import lombok.AllArgsConstructor;
+//import lombok.Getter;
+//import lombok.NoArgsConstructor;
+//import lombok.Setter;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,17 +18,17 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+//@Getter
+//@Setter
+//@AllArgsConstructor
+//@NoArgsConstructor
 public class Todo {
 	
 	private String title;
 	private Boolean isDone;
 	private int priority;
 	private String str_endDate;
-//	
+	
 	static {
 		try {
 		Class.forName("com.mysql.cj.jdbc.Driver");
@@ -39,29 +39,13 @@ public class Todo {
 	
 	// get Connection
 	public static Connection getConnection() throws SQLException{
-		String url = "jdbc:mysql://localhost/java_todo?characterEncoding=UTF-8&serverTimezone=UTC";
-		String id = "root";
-		String pw = "0000";
+		String url = "jdbc:mysql://localhost:3306/java_todo?characterEncoding=UTF-8&serverTimezone=UTC";
+	    String id = "root";
+	    String pw = "0000";
 		return DriverManager.getConnection(url, id, pw);
 	}
 	
-	public void createUserTable() throws SQLException{
-		Connection conn  = getConnection();
-		Statement stmt = conn.createStatement();
-		String createTableSQL = "CREATE TABLE IF NOT EXISTS TodoTable("+
-				"userId smallint   auto_increment," +
-			    "title   VARCHAR(30)," +
-			   " isDone   boolean," +
-			  " priority  smallint,"+
-			   " endDate   VARCHAR(20),"+
-			    "primary key(userId, title)"+
-			")";
-
-		stmt.execute(createTableSQL);
-		
-		System.out.println("TodoTable 생성완료");
-		close(conn, stmt);
-	}
+	
 	
 	public static void close(Connection conn, Statement stmt, ResultSet rs) throws SQLException {
 		rs.close();
