@@ -1,14 +1,15 @@
 package todoApp;
 
 import java.io.*;
+import java.sql.SQLException;
 import java.util.*;
 import java.time.*;
  
 public class AdminTodo {
-	ArrayList<User> userList = new ArrayList<User>();
 	
-	public void enrollTodo(User user) {
-		System.out.println("안녕하세요 " + user.getName() + "님"+
+	
+	public void enrollTodo(int userId) {
+		System.out.println("안녕하세요 " + User.getName(userId) + "님"+
 				"\n할일 등록 시작하겠습니다.");
 		
 		System.out.println("할일 제목 입력");
@@ -37,7 +38,8 @@ public class AdminTodo {
 				Scanner inputEndDate = new Scanner(System.in);
 				endDate = inputEndDate.next();
 				LocalDate date =  LocalDate.parse(endDate);
-				user.addTodo(title, priority, date);
+				// 수정필요 해당 파라미터 받아서 insert
+				Todo.addTodo(userId, title, priority, endDate);
 				System.out.println("할일 등록 완료");
 				break;
 			} catch (Exception e) {
@@ -46,36 +48,37 @@ public class AdminTodo {
 				continue;
 			}
 		}
+		
 	}
-	public void printTodoList(User user) {
-		System.out.println(user.getName() + "님");
-		user.showTodoList();
+	public void printTodoList(int userId) {
+		System.out.println(User.getName(userId) + "님");
+		Todo.showTodoList(userId);
 		System.out.println();
-		user.showDoneList();
+		Todo.showDoneList(userId);
 	}
 	
-	public void saveTodoList(User user) {
-		System.out.println(user.getName() + "님");
-		user.showTodoList();
-		user.showDoneList();
+	public void saveTodoList(int userId) {
+		System.out.println(User.getName(userId) + "님");
+		Todo.showTodoList(userId);
+		Todo.showDoneList(userId);
 		System.out.println();
 		
-		AdminTodo.todoToText(user);
-		System.out.println(user.getName() + "의 txt 파일 작성 완료..");
+		todoToText(user);
+		System.out.println(User.getName(userId) + "의 txt 파일 작성 완료..");
 	}
 	
-	public void delTodo(User user) {
+	public void delTodo(int userId) throws SQLException {
 		System.out.println("삭제할 Todo 제목을 입력해 주세요");
 		Scanner inputDeleteTitle = new Scanner(System.in);
 		String deleteTitle = inputDeleteTitle.next();
-		user.deleteTodo(deleteTitle);
+		Todo.deleteTodo(userId, deleteTitle);
 	}
 	
-	public void doneTodo(User user) {
+	public void doneTodo(int userId) throws SQLException {
 		System.out.println("완료할 Todo 제목을 입력해 주세요");
 		Scanner inputDoneTitle = new Scanner(System.in);
 		String doneTitle = inputDoneTitle.next();
-		user.doneTodo(doneTitle);
+		Todo.doneTodo(userId, doneTitle);
 	}
 	
 	public static void todoToText(User user) {
