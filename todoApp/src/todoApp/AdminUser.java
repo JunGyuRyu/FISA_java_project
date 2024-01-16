@@ -67,7 +67,7 @@ public class AdminUser {
 			Statement stmt = conn.createStatement();
 			
 			String sql = "select userId from UserTable"
-			+ "WHERE userId = " + userId;
+			+ " WHERE userId = " + userId;
 			
 			ResultSet rs = stmt.executeQuery(sql);
 			if (rs.next()) {

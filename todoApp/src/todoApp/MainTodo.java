@@ -15,6 +15,9 @@ public class MainTodo {
 					+ "4번 할 일 완료 \n"
 					+ "5번 할 일 목록 보기 \n"
 					+ "6번 할 일 목록 저장 \n"
+					+ "7번 사용자 나이 변경 \n"
+					+ "8번 사용자 이름 변경 \n"
+					+ "9번 사용자 성별 변경 \n"
 					+ "0번 종료 \n"
 					+ "----------------------------");
 			if(tableFlag) {
@@ -49,6 +52,15 @@ public class MainTodo {
 			} 
 			else if(mode == 6) {
 				AdminTodo.saveTodoList(AdminUser.checkUserId());
+			}
+			else if(mode == 7) {
+				User.setAge(AdminUser.checkUserId());
+			}
+			else if(mode == 8) {
+				User.setName(AdminUser.checkUserId());
+			}
+			else if(mode == 9) {
+				User.setGender(AdminUser.checkUserId());
 			}
 			else if(mode == 0) {
 				System.out.println("[Todo 프로그램 종료]");

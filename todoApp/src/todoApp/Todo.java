@@ -62,19 +62,26 @@ public class Todo {
 		Connection conn  = getConnection();
 		Statement stmt = conn.createStatement();
 		
-		String showTodoSQL = "select * from TodoTable where isDone = false order by priority";
+		String showTodoSQL = "select * from TodoTable where isDone = false and userId = " + userId +
+							" order by priority";
 		
 		ResultSet rs = stmt.executeQuery(showTodoSQL);
 		
 		while(rs.next()) {
+//			if(rs.getInt("userId") == 0) {
+//				System.out.println("[Todo List가 없습니다.]");
+//				break;
+//			}
+			System.out.println("[Todo List]");
 			System.out.println(rs.getInt("userId") + " "
-								+ rs.getString("title") + " "
-								+ rs.getInt("priority") + " "
-								+ rs.getString("endDate") + " "
-								+ checkDeadLine(rs.getString("endDate"))
-								);
-			
+					+ rs.getString("title") + " "
+					+ rs.getInt("priority") + "순위 "
+					+ rs.getString("endDate") + " "
+					+ checkDeadLine(rs.getString("endDate"))
+					);
 		}
+		
+		close(conn, stmt, rs);
 		
 	}
 	
@@ -82,18 +89,19 @@ public class Todo {
 		Connection conn  = getConnection();
 		Statement stmt = conn.createStatement();
 		
-		String showTodoSQL = "select * from TodoTable where isDone = true";
+		String showTodoSQL = "select * from TodoTable where isDone = true  and userId = " + userId;
 		
 		ResultSet rs = stmt.executeQuery(showTodoSQL);
-		
+
 		while(rs.next()) {
+			System.out.println("[Done List]");
 			System.out.println(rs.getInt("userId") + " "
 								+ rs.getString("title") + " "
 								+ rs.getString("endDate") + " "
 								);
 			
 		}
-		
+		close(conn, stmt, rs);
 	}
 	
 	public static void addTodo(int userId, String title, int priority, String str_endDate) throws SQLException {

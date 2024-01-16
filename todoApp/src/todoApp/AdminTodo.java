@@ -2,6 +2,7 @@ package todoApp;
 
 import java.io.*;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
@@ -80,20 +81,20 @@ public class AdminTodo {
 		}
 		
 	}
-	public static void printTodoList(int userId) {
+	public static void printTodoList(int userId) throws SQLException {
 		System.out.println(User.getName(userId) + "님");
 		Todo.showTodoList(userId);
 		System.out.println();
 		Todo.showDoneList(userId);
 	}
 	
-	public static void saveTodoList(int userId) {
+	public static void saveTodoList(int userId) throws SQLException {
 		System.out.println(User.getName(userId) + "님");
 		Todo.showTodoList(userId);
 		Todo.showDoneList(userId);
 		System.out.println();
 		
-		todoToText(user);
+		todoToText(userId);
 		System.out.println(User.getName(userId) + "의 txt 파일 작성 완료..");
 	}
 	
@@ -111,70 +112,90 @@ public class AdminTodo {
 		Todo.doneTodo(userId, doneTitle);
 	}
 	
-	public static void todoToText(User user) {
-		File folder = new File("src/todoApp/" + user.getName());
+	public static void todoToText(int userId) throws SQLException {
+		File folder = new File("src/todoApp/" + User.getName(userId));
 		// 폴더 있으면 false 반환, 없으면 생성
 		boolean directoryCreated = folder.mkdir();
 		System.out.println("User 생성 여부: "+ directoryCreated);
-		ArrayList<Todo> doneList = user.getDoneList();
-		ArrayList<Todo> todoList = user.getTodoList();
+//		ArrayList<Todo> doneList = Todo.getDoneList();
+//		ArrayList<Todo> todoList = user.getTodoList();
 		String line = "----------------------------------------------------------------\n";
 		
+		
+		Connection conn  = Todo.getConnection();
+		Statement stmt = conn.createStatement();
+		
+		String userInfoSQL = "select name, age, gender from UserTable where userId = " + userId;
+//		System.out.println(userInfoSQL);
+		ResultSet rs = stmt.executeQuery(userInfoSQL);
+		String user_info = "";
+		if (rs.next()) {
+			user_info = "[사용자: " + rs.getString("name") + " | 나이: " + rs.getInt("age") + " | 성별: " + rs.getString("gender") + "]\n\n";
+		}	
+		
 		// todoList 폴더에 todo.txt 파일 생성
-		for (int i = 0; i < todoList.size(); i++) {
-			File file = new File("src/todoApp/" + user.getName() + "/todoList.txt");
-			String user_info = (String) "[사용자: " + user.getName() + " | 나이: " + user.getAge() 
-			+ " | 성별: " + user.getGender() + "]\n\n";
+		
+		File file = new File("src/todoApp/" +  User.getName(userId) + "/todoList.txt");
+//			String user_info = (String) "[사용자: " +  User.getName(userId) + " | 나이: " + user.getAge() 
+//			+ " | 성별: " + user.getGender() + "]\n\n";
+		
+		// 파일에 입력한 값 작성
+		try {
+			FileOutputStream fileTodo = new FileOutputStream(file);
+			fileTodo.write(user_info.getBytes());
+			fileTodo.write(line.getBytes()); // ----- ~~
+			String showTodoSQL = "select * from TodoTable where isDone = false  and userId = " + userId;
 			
-			// 파일에 입력한 값 작성
-			try {
-				FileOutputStream fileTodo = new FileOutputStream(file);
-				fileTodo.write(user_info.getBytes());
+			ResultSet todoRs = stmt.executeQuery(showTodoSQL);
+			while(todoRs.next()) {
+				fileTodo.write((todoRs.getString("endDate") + "\n").getBytes()); // Date
+				fileTodo.write(("우선순위: " + todoRs.getInt("priority") + "순위\n").getBytes()); // Priority
+				fileTodo.write((todoRs.getString("title") + "\n").getBytes()); // Title
 				fileTodo.write(line.getBytes()); // ----- ~~
-				for (Todo todos: user.getTodoList()) {
-					fileTodo.write((todos.getEndDate().toString() + "\n").getBytes()); // Date
-					fileTodo.write(("우선순위: " + todos.getPriority() + "순위\n").getBytes()); // Priority
-					fileTodo.write((todos.getTitle().toString() + "\n").getBytes()); // Title
-					fileTodo.write(line.getBytes()); // ----- ~~
-				}
-				fileTodo.close(); // 파일 닫기
-			} catch (FileNotFoundException e) {
-				System.out.println("[파일을 찾을 수 없습니다]");
-				System.out.println(e);
-			} catch (Exception e) {
-				System.out.println("[예외 오류 발생]");
-				System.out.println(e);
 			}
+			
+			fileTodo.close(); // 파일 닫기
+		} catch (FileNotFoundException e) {
+			System.out.println("[파일을 찾을 수 없습니다]");
+			System.out.println(e);
+		} catch (Exception e) {
+			System.out.println("[예외 오류 발생]");
+			System.out.println(e);
 		}
+		
 		
 		
 		// doneList 폴더에 todo.txt 파일 생성
-		for (int i = 0; i < doneList.size(); i++) {
-			File file = new File("src/todoApp/" + user.getName() + "/doneList.txt");
-			String user_info = (String) "[사용자: " + user.getName() + " | 나이: " + user.getAge() 
-			+ " | 성별: " + user.getGender() + "]\n\n";
+		
+		File doneFile = new File("src/todoApp/" + User.getName(userId) + "/doneList.txt");
+		
+		
+		
+		// 파일에 입력한 값 작성
+		try {
+			FileOutputStream fileTodo = new FileOutputStream(doneFile);
+			fileTodo.write(user_info.getBytes());
+			fileTodo.write(line.getBytes()); // ----- ~~
 			
-			
-			// 파일에 입력한 값 작성
-			try {
-				FileOutputStream fileTodo = new FileOutputStream(file);
-				fileTodo.write(user_info.getBytes());
+			String showDoneSQL = "select * from TodoTable where isDone = true  and userId = " + userId;
+			ResultSet doneRs = stmt.executeQuery(showDoneSQL);
+			while(doneRs.next()) {
+				fileTodo.write((doneRs.getString("endDate") + "\n").getBytes()); // Date
+				fileTodo.write(("우선순위: " + doneRs.getInt("priority") + "순위\n").getBytes()); // Priority
+				fileTodo.write((doneRs.getString("title") + "\n").getBytes()); // Title
 				fileTodo.write(line.getBytes()); // ----- ~~
-				for (Todo todos: user.getDoneList()) {
-					fileTodo.write((todos.getEndDate().toString() + "\n").getBytes()); // Date
-					fileTodo.write(("우선순위: "+todos.getPriority()+"순위\n").getBytes()); // Priority
-					fileTodo.write((todos.getTitle().toString() + "\n").getBytes()); // Title
-					fileTodo.write(line.getBytes()); // ----- ~~
-				}
-				fileTodo.close(); // 파일 닫기
-			} catch (FileNotFoundException e) {
-				System.out.println("[파일을 찾을 수 없습니다]");
-				System.out.println(e);
-			} catch (Exception e) {
-				System.out.println("[예외 오류 발생]");
-				System.out.println(e);
 			}
+			
+		
+			fileTodo.close(); // 파일 닫기
+		} catch (FileNotFoundException e) {
+			System.out.println("[파일을 찾을 수 없습니다]");
+			System.out.println(e);
+		} catch (Exception e) {
+			System.out.println("[예외 오류 발생]");
+			System.out.println(e);
 		}
+		
 			
 	}
 }
