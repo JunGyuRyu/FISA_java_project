@@ -59,7 +59,7 @@ public class AdminTodo {
 				System.out.println(e);
 				System.out.println("[우선순위를 다시 입력해주세요.]");
 				continue;
-			}
+			} 
 		}
 		
 		System.out.println("할일완료날짜(YYYY-MM-dd) 입력");
