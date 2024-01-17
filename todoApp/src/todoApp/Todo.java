@@ -28,9 +28,9 @@ public class Todo {
 	
 	// get Connection
 	public static Connection getConnection() throws SQLException{
-		String url = "jdbc:mysql://localhost:3306/java_todo?characterEncoding=UTF-8&serverTimezone=UTC";
-	    String id = "root";
-	    String pw = "0000";
+		String url = ConnectionInfo.getUrl();
+	    String id = ConnectionInfo.getId();
+	    String pw = ConnectionInfo.getPw();
 		return DriverManager.getConnection(url, id, pw);
 	}
 	
