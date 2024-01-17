@@ -13,28 +13,30 @@
 
 ## Trouble Shooting
 
-1. 깃허브 commit 충돌 이슈
+**1. 깃허브 commit 충돌 이슈**
     
     현재 깃허브에 올라가 있는 Commit 버전과 자신이 수정해서 올리려고 하는 파일이 일치하지 않을 때 충돌이 발생. 깃허브에 올라가 있는 버전으로 pull해서 다시 자신이 변경한 코드를 push하는 방식으로 해결했다.
     
-2. Scanner 이슈
+**2. Scanner 이슈**
     
     조건문에서 조건을 비교할 때 변수를 사용하지 않고 `scan.nextInt()`를 사용해서 조건문을 실행할 때 마다 입력을 `nextint()`로 scan되는 값 만큼 반복해서 받아야 실행되는 이슈가 있어 변수를 지정하여 처리하였더니 제대로 동작함.
     
-3. `lombok`의 `@Getter`와 `java.sql.Connection.getConnection()` 을 동시에 사용하려 할 때 충돌이 발생해서 mysql DB에 접속하기 위해 getConnection()을 사용하려면, `@Getter`를 사용하지 않아야 한다.
+**3. `lombok`과 `getConnection()` 충돌 이슈**
+
+    `lombok`의 `@Getter`와 `java.sql.Connection.getConnection()` 을 동시에 사용하려 할 때 충돌이 발생해서 mysql DB에 접속하기 위해 getConnection()을 사용하려면, `@Getter`를 사용하지 않아야 한다.
 
 ## KPT(Keep, Problem, Try)
 
-- Keep
+- **Keep**
     1. 문제가 발생했을 때 문제가 발생한 부분을 빠르게 찾는 디버깅 역량을 강화했다.
     2. 프로젝트에 성실히 임했다.
     3. 서로의 의견을 조율해서 각자의 역할을 잘 수행했다.
-- Problem
+- **Problem**
     1. 깃허브 commit 충돌 이슈가 발생했다.
     2. 개발 전 프로젝트 목표를 상세하게 설계하기 어려웠다.
     3. MainTodo에서 mode의 값에 따라 다른 Class로 넘어가는 flow를 이해하기 어려웠다.
     4. Java와 Python을 짧은 기간 안에 배워서 문법이 헷갈렸다.
-- Try
+- **Try**
     1. README.md를 보기 좋게 꾸미고 싶다.
     2. 팀원마다 개인의 branch를 만들어서 작업하고 main으로 merge하는 방식으로 협업을 진행해 편하게 프로젝트 버전 관리를 하고 싶다.
     3. MVC 패턴을 적용해서 아래 세 가지를 개선하고 싶다.
