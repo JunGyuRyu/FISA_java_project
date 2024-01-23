@@ -96,6 +96,8 @@ public class AdminTodo {
 		
 		todoToText(userId);
 		System.out.println(User.getName(userId) + "의 txt 파일 작성 완료..");
+		
+		todoToImg(userId);
 	}
 	
 	public static void delTodo(int userId) throws SQLException {
@@ -112,12 +114,22 @@ public class AdminTodo {
 		Todo.doneTodo(userId, doneTitle);
 	}
 	
+	public static void todoToImg(int userId) throws SQLException {
+		todoToImg.DoneToImg(User.getName(userId));
+		todoToImg.TodoToImg(User.getName(userId));
+		
+	}
+	
+	
+	
+	
+	
 	public static void todoToText(int userId) throws SQLException {
 		File folder = new File("src/todoApp/" + User.getName(userId));
 		// 폴더 있으면 false 반환, 없으면 생성
 		boolean directoryCreated = folder.mkdir();
 		System.out.println("User 생성 여부: "+ directoryCreated);
-		String line = "----------------------------------------------------------------\n";
+		String line = "-----------------------------------------------------\n";
 		
 		
 		Connection conn  = Todo.getConnection();
@@ -127,7 +139,7 @@ public class AdminTodo {
 		ResultSet rs = stmt.executeQuery(userInfoSQL);
 		String user_info = "";
 		if (rs.next()) {
-			user_info = "[사용자: " + rs.getString("name") + " | 나이: " + rs.getInt("age") + " | 성별: " + rs.getString("gender") + "]\n\n";
+			user_info = "[사용자: " + rs.getString("name") + " | 나이: " + rs.getInt("age") + " | 성별: " + rs.getString("gender") + "]\n";
 		}	
 		
 		// todoList 폴더에 todo.txt 파일 생성
@@ -138,7 +150,7 @@ public class AdminTodo {
 			FileOutputStream fileTodo = new FileOutputStream(file);
 			fileTodo.write(user_info.getBytes());
 			fileTodo.write(line.getBytes()); // ----- ~~
-			String showTodoSQL = "select * from TodoTable where isDone = false  and userId = " + userId;
+			String showTodoSQL = "select * from TodoTable where isDone = false AND userId = " + userId + " ORDER BY endDate ASC, priority ASC";
 			
 			ResultSet todoRs = stmt.executeQuery(showTodoSQL);
 			while(todoRs.next()) {
@@ -147,8 +159,9 @@ public class AdminTodo {
 				fileTodo.write((todoRs.getString("title") + "\n").getBytes()); // Title
 				fileTodo.write(line.getBytes()); // ----- ~~
 			}
-			
+			fileTodo.write(line.getBytes()); // 마지막 한 줄 더 추가
 			fileTodo.close(); // 파일 닫기
+			
 		} catch (FileNotFoundException e) {
 			System.out.println("[파일을 찾을 수 없습니다]");
 			System.out.println(e);
@@ -178,9 +191,10 @@ public class AdminTodo {
 				fileTodo.write((doneRs.getString("title") + "\n").getBytes()); // Title
 				fileTodo.write(line.getBytes()); // ----- ~~
 			}
-			
-		
+			fileTodo.write(line.getBytes()); // 마지막 한 줄 더 추가
 			fileTodo.close(); // 파일 닫기
+			
+			
 		} catch (FileNotFoundException e) {
 			System.out.println("[파일을 찾을 수 없습니다]");
 			System.out.println(e);

@@ -52,6 +52,7 @@ public class MainTodo {
 			} 
 			else if(mode == 6) {
 				AdminTodo.saveTodoList(AdminUser.checkUserId());
+//				AdminTodo.todoToImg(AdminUser.checkUserId());
 			}
 			else if(mode == 7) {
 				User.setAge(AdminUser.checkUserId());
